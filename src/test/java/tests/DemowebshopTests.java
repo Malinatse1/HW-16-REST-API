@@ -3,8 +3,7 @@ import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 
 public class DemowebshopTests {
     @BeforeAll
@@ -20,9 +19,9 @@ public class DemowebshopTests {
                 .get("/country/getstatesbycountryid?countryId=87&addEmptyStateIfRequired=true&_=1676637499942")
                 .then()
                 .log().all()
-                .statusCode(200);
-//                .body("id",is(0))
-//                .body("name", is("Other (Non US)"));
+                .statusCode(200)
+                .body("id", hasItem(0))
+                .body("name",hasItem("Other (Non US)"));
 
     }
 }
